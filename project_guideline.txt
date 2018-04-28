@@ -1,0 +1,28 @@
+===========ReadLexingtonData.py
+
+-> This file generates the route trajectories for each bus.
+-> It also generates geographical coordinates for data centers and POIs.
+
+
+============== computeLINKEXISTS.py
+
+-> This file basically creates the series of graph at various times.
+
+Currently, I store the graph as 5D-matrix.
+
+LINK_EXISTS[i, j, s, ts, te] = 0/1
+
+where,
+
+i and j are node ids,
+s is the band type (it would always be 0, if we only consider only one band type, say WiFi),
+ts and te are start and end times for the existence of a communication link between nodes i and j
+over band type s.
+
+============= specBW.py
+
+-> This file basically enables varying channel bandwidth at different times,
+between different pair of nodes.
+
+-> This becomes important to simulate the real scenarios,
+where bandwidths vary across space and time dimensions.
