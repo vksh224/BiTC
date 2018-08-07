@@ -2,7 +2,7 @@ from computeHarvesine import *
 import networkx as nx
 
 def create_static_network(filename):
-    wifi_range = 1000
+    wifi_range = 1500
 
     with open(filename) as f:
         apslocations = f.readlines()
@@ -36,4 +36,6 @@ def create_static_network(filename):
     print ("Number of nodes in G: ",len(G))
     print ("Number of edges in G: ",len(G.edges()))
     print ("Density of G: ",(2 * len(G.edges()))/(len(G) * (len(G) - 1)))
+
+    return G
 
