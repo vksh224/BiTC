@@ -57,5 +57,6 @@ def genSTB(fname):
 
     print ("Number of nodes in STB: ",len(G))
     print ("Number of edges in STB: ",len(G.edges()))
+    print("Density of G: ", (2 * len(G.edges())) / (len(G) * (len(G) - 1)))
 
     return G

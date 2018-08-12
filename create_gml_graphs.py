@@ -8,16 +8,16 @@ if generate_files == "Y":
     print("Generate bus trajectories ---------------------- \n")
 
     set_max_nodes = True
-    max_nodes = 20
-    src_des_nodes = 5
+    max_nodes = 10
+    src_des_nodes = 0
     run_start_time = 1
 
-    mule_set = [20]
+    mule_set = [10]
     simulation_times = [5]
     for max_mules in mule_set:
         for run in range(run_start_time, 2):
             for T in simulation_times:
-                print("=============== Folder: Band" + str(max_mules) + " Round: " + str(T))
+                print("=============== Folder: Band" + str(max_mules) + " Time: " + str(T))
 
                 #S = [0, 1, 2, 3]
                 path_to_folder = "Nodes" + str(max_mules) + "/Time" + str(T) + "/Day1/ALL/XChants/"

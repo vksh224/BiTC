@@ -4,6 +4,7 @@ import re
 from shutil import copyfile
 
 from STB_help import *
+from constants import *
 
 
 def readTrajectoryFile(DMTrajectories):
@@ -17,57 +18,12 @@ def readTrajectoryFile(DMTrajectories):
             if patternMatch:
                 #print ("Pattern 1: ", patternMatch.group(1))
                 trajectoryCoord = patternMatch.group(1)
-                if len(trajectoryCoord.strip().split(',')) > 50:
+                if len(trajectoryCoord.strip().split(',')) > 40:
                     DMTrajectories.append(trajectoryCoord.strip().split(','))
 
             else:
                 print ("No Match !!!")
     fp.close()
-
-
-def getSourceDesCoordinates(src_start, src_end, des_end):
-    bus_routes = pickle.load(open(lex_data_directory + "bus_route_ids.pkl", "rb"))
-    village_coors = [0 for x in range(des_end + 1)]
-    bus_routes = list(set(bus_routes))
-
-    print(bus_routes)
-    print(src_start, src_end, des_end)
-    for srcID in range(src_start, src_end, 1):
-        #Choose src and des from bus routes
-        route_id = random.choice(bus_routes)
-        #bus_routes.remove(route_id)
-        src = random.choice(DMTrajectories[route_id])
-
-        if srcID + src_end >= des_end:
-            village_coors[srcID] = src
-            print("SRC Route ID", route_id, srcID, src)
-
-        else:
-            des = random.choice(DMTrajectories[route_id])
-            dist = euclideanDistance(float(str(src).split()[0]), float(str(src).split()[1]), float(str(des).split()[0]), float(str(des).split()[1]))
-            count = 0
-            adequate_dist = random.randint(0, 10)
-            while dist < adequate_dist:
-                count = count + 1
-                if count > len(DMTrajectories[route_id]):
-                    route_id = random.choice(bus_routes)
-                    # print(route_id)
-                    count = 0
-
-                src = random.choice(DMTrajectories[route_id])
-                des = random.choice(DMTrajectories[route_id])
-                dist = euclideanDistance(float(str(src).split()[0]), float(str(src).split()[1]), float(str(des).split()[0]),
-                                         float(str(des).split()[1]))
-                # print(route_id, dist)
-
-            print("SRC Route ID", route_id, srcID, src)
-            print("DES Route ID", route_id, srcID + src_end, des, "dist: ", dist, "\n")
-            village_coors[srcID] = src
-            village_coors[srcID + src_end] = des
-
-    f = open(lex_data_directory + "village_coor.pkl", 'wb')
-    pickle.dump(village_coors, f)
-    f.close()
 
 def getBusRoutes(bus_start, bus_end):
     bus_routes = []
@@ -79,38 +35,8 @@ def getBusRoutes(bus_start, bus_end):
     f.close()
     print(bus_routes)
 
-def getLocationsOfSourcesAndDataCenters(startIndex, endIndex):
-    # create file for Sources. Though the source location are fixed, the spectrum bandwidth changes over time
-    # Hence, it is important to save it as a file
-
-    villageCoor = pickle.load(open(lex_data_directory + "village_coor.pkl", "rb"))
-    for srcID in range(startIndex, endIndex, 1):
-
-        # villageCoor = random.choice(DMTrajectories[srcID%len(DMTrajectories)])
-        srcLocationX = villageCoor[srcID].strip().split(" ")[0]
-        srcLocationY = villageCoor[srcID].strip().split(" ")[1]
-        # print("Location: " + villageCoor[srcID] + " " + srcLocationX + " " + srcLocationY)
-
-        with open(lex_data_directory_day + str(srcID) + ".txt", "w") as srcP:
-            srcP.write("T X Y ")
-            for s in S:
-                srcP.write("S" + str(s) + " ")
-            srcP.write("\n")
-
-            for t in range(0, T, dt):
-                srcP.write(str(t) + " " + str(srcLocationX) + " " + str(srcLocationY) + " ")
-
-                # Change the bandwidth of each spectrum at each DSA node at each time epoch
-                specBW = [minBW[s] for s in S]
-                # print ("Length of spectrum: " + str(S))
-                for sBW in specBW:
-                    srcP.write(str(sBW) + " ")
-                srcP.write("\n")
-        srcP.close()
-
-
 def getLocationsOfDMs(DMTrajectories, startIndex, endIndex):
-    dmID = startIndex + NoOfSources + NoOfDataCenters - 1
+    dmID = - 1
     bus_route_ids = pickle.load(open(lex_data_directory + "bus_route_ids.pkl", "rb"))
 
     for ind in range(startIndex, endIndex, 1):
@@ -125,12 +51,6 @@ def getLocationsOfDMs(DMTrajectories, startIndex, endIndex):
         chosen_trajectory_id  = bus_route_ids[ind]
         eachDM = DMTrajectories[chosen_trajectory_id]
 
-        villageCoor = pickle.load(open(lex_data_directory + "village_coor.pkl", "rb"))
-
-        # print("Village coors", villageCoor)
-        # print("Bus route ", bus_route_ids[ind], DMTrajectories[bus_route_ids[ind]], "\n")
-
-        # print("Trajectory " +  str(len(eachDM)) + " : " + str(eachDM))
 
         with open(lex_data_directory_day + "/"+ str(dmID)+".txt", "w") as dmP:
             # print ("For DM: " + str(dmID) + " Speed: " + str(dmSpeed))
@@ -153,7 +73,7 @@ def getLocationsOfDMs(DMTrajectories, startIndex, endIndex):
 
 
                 # if prevCoors in villageCoor:
-                if eachDM[currCoorID] in villageCoor and chosen_wait_time > 0:
+                if chosen_wait_time > 0:
                     chosen_wait_time -= 1
                     dmP.write(str(t) + " " + eachDM[currCoorID].strip() + " ")
                     # if chosen_wait_time == 1:
@@ -193,20 +113,8 @@ def getLocationsOfDMs(DMTrajectories, startIndex, endIndex):
                 dmP.write("\n")
         dmP.close()
 
-
-def copy_files():
-    # for run in range(1, 11, 1):
-    for i in range(V):
-        run = lex_data_directory_day.split("/")[2]
-        day = lex_data_directory_day.split("/")[3]
-        # print("Current run is: ", run)
-        src = "Lexington" + str(max_nodes) + "/" + str(run) + "/" + day  + "/" + str(i) + ".txt"
-        dst = lex_data_directory_day + str(i) + ".txt"
-        copyfile(src, dst)
-
 # Main starts here
 
-#change the directory to the parent one
 #We want same source, destination, and bus routes irrespective of number of runs and days
 lex_data_directory = lex_data_directory.split("/")[0] +"/" + lex_data_directory.split("/")[1] + "/"
 
@@ -227,21 +135,9 @@ readTrajectoryFile(DMTrajectories)
 
 print("Length of DM trajectories: ", len(DMTrajectories))
 
-#TODO: Run it only for Day1
-
-#Just copy files, we don't have to generate the trajectories
-# if V - NoOfDataCenters - NoOfSources < max_nodes:
-#     copy_files()
-#
-# else:
-#TODO: Run it only for Day1
-#if "Day1" in lex_data_directory_day and lex_data_directory_day.split("/")[2] == str(run_start_time):
 print("New locations generated\n")
-getBusRoutes(0, NoOfDMs)
-getSourceDesCoordinates(0, NoOfSources, (NoOfSources + NoOfDataCenters))
 
-# Randomly place sources and destination nodes (index from 0 to S -1)
-getLocationsOfSourcesAndDataCenters(0, NoOfSources + NoOfDataCenters)
+getBusRoutes(0, V)
 
 # Place DMs on selected Routes (index from (S - DM)
-getLocationsOfDMs(DMTrajectories, 0, NoOfDMs)
+getLocationsOfDMs(DMTrajectories, 0, V)

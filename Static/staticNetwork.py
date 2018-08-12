@@ -2,7 +2,7 @@ from computeHarvesine import *
 import networkx as nx
 
 def create_static_network(filename):
-    wifi_range = 1500
+    wifi_range = 1000
 
     with open(filename) as f:
         apslocations = f.readlines()

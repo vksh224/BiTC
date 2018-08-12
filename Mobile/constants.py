@@ -16,10 +16,7 @@ maxTau = 10
 # Message size
 M = [1, 10, 100, 1000]
 
-NoOfSources = 3
-NoOfDataCenters = 2
-
-numSpec = 2 #always even if we only use one band
+numSpec = 1 #always even if we only use one band
 
 #TV ISM LTE CBRS
 #3, 10, 40
@@ -27,7 +24,7 @@ minBW = [3, 8, 20, 40]               # Minimum bandwidth for each spectrum band
 #6, 20, 60
 maxBW = [6, 20, 30, 60]             # Maximum bandwidth for each spectrum band
 #2000, 100, 500
-spectRange = [7705, 7700, 1000, 2000]
+spectRange = [5000, 1000, 1000, 2000]
 #spectRange = [3600, 900, 2400, 700]        # Transmission coverage for each spectrum band
 # specRange = [1, 2, 0.5]
 spectPower = [4, 1, 4, 10]          # Transmission power for each spectrum band
@@ -54,13 +51,13 @@ VMIN = 400
 VMAX = 600
 wait_time = [2, 7]
 run_start_time = 1
-S = [0,1]
-path_to_folder = 'Nodes20/Time5/Day1/ALL/XChants/'
-link_exists_folder = 'Nodes20/Time5/Day1/'
-lex_data_directory = 'Lexington20/Time5/'
-lex_data_directory_day = 'Lexington20/Time5/Day1/'
-V = 25
-NoOfDMs = 20
+S = [0]
+path_to_folder = 'Nodes10/Time5/Day1/ALL/XChants/'
+link_exists_folder = 'Nodes10/Time5/Day1/'
+lex_data_directory = 'Lexington10/Time5/'
+lex_data_directory_day = 'Lexington10/Time5/Day1/'
+V = 10
+NoOfDMs = 10
 T = 5
-max_nodes = 20
-pkl_folder = 'Lexington20/Time_5/Day1_pkl/'
+max_nodes = 10
+pkl_folder = 'Lexington10/Time_5/Day1_pkl/'
