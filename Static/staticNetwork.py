@@ -32,6 +32,7 @@ def create_static_network(filename):
 
             if dist <= wifi_range:
                 G.add_edge(u, v)
+                G[u][v]['weight'] = 1
 
     print ("Number of nodes in G: ",len(G))
     print ("Number of edges in G: ",len(G.edges()))

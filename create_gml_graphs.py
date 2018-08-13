@@ -13,7 +13,7 @@ if generate_files == "Y":
     run_start_time = 1
 
     mule_set = [10]
-    simulation_times = [5]
+    simulation_times = [5, 10, 15]
     for max_mules in mule_set:
         for run in range(run_start_time, 2):
             for T in simulation_times:

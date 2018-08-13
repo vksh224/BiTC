@@ -20,12 +20,13 @@ def check(u_w,u_g,mapped_wsn,mapped_grn,undirected,directed,fidelity):
         if undirected.has_edge(u_w,mapped_wsn[i]):
             den += 1.0
             if directed.has_edge(u_g,mapped_grn[i]):
+            # if nx.has_path(directed, u_g, mapped_grn[i]):
                 num += 1.0
                 e.append((u_w,mapped_wsn[i]))
                 ppe += nx.shortest_path_length(directed,source = u_g,target = mapped_grn[i])
                 den1 += 1.0
-
-            elif nx.has_path(directed,mapped_grn[i],u_g):
+            elif directed.has_edge(mapped_grn[i], u_g):
+            # elif nx.has_path(directed, mapped_grn[i], u_g):
                 num += 1.0
                 e.append((mapped_wsn[i],u_w))
                 ppe += nx.shortest_path_length(directed,source = mapped_grn[i],target = u_g)

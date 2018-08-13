@@ -9,7 +9,7 @@ dt = 1  # this is the discrete time interval such as 0, 2, 4, 6, 8, ...
 tau = 1 # Instead of looking at each dt, we would look at tau as this is the minimum time to transfer a message
 
 #TTL Bound ----  1 plus
-TTL = 5
+TTL = 1
 minTTL = 15
 #max tau is the time taken to deliver the maximum size message over slowest band (with least bandwidth)
 maxTau = 10
@@ -24,7 +24,7 @@ minBW = [3, 8, 20, 40]               # Minimum bandwidth for each spectrum band
 #6, 20, 60
 maxBW = [6, 20, 30, 60]             # Maximum bandwidth for each spectrum band
 #2000, 100, 500
-spectRange = [5000, 1000, 1000, 2000]
+spectRange = [5000, 5000, 5000, 5000]
 #spectRange = [3600, 900, 2400, 700]        # Transmission coverage for each spectrum band
 # specRange = [1, 2, 0.5]
 spectPower = [4, 1, 4, 10]          # Transmission power for each spectrum band
@@ -52,12 +52,12 @@ VMAX = 600
 wait_time = [2, 7]
 run_start_time = 1
 S = [0]
-path_to_folder = 'Nodes10/Time5/Day1/ALL/XChants/'
-link_exists_folder = 'Nodes10/Time5/Day1/'
-lex_data_directory = 'Lexington10/Time5/'
-lex_data_directory_day = 'Lexington10/Time5/Day1/'
+path_to_folder = 'Nodes10/Time15/Day1/ALL/XChants/'
+link_exists_folder = 'Nodes10/Time15/Day1/'
+lex_data_directory = 'Lexington10/Time15/'
+lex_data_directory_day = 'Lexington10/Time15/Day1/'
 V = 10
 NoOfDMs = 10
-T = 5
+T = 15
 max_nodes = 10
-pkl_folder = 'Lexington10/Time_5/Day1_pkl/'
+pkl_folder = 'Lexington10/Time_15/Day1_pkl/'

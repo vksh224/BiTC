@@ -2,6 +2,7 @@ import pickle
 import math
 import networkx as nx
 import numpy as np
+import random
 
 def genSTB(fname):
     #Link exist list of format [i, j, s, te, ts]
@@ -21,10 +22,6 @@ def genSTB(fname):
     #Add nodes to G. Each node label <nid - time - interface>
     for u in range(S[0]):
         for t in range(S[3]):
-
-            # if t > 4:
-            #     continue
-
             for i in range(S[2]):
                 G.add_node(str(u) + '-' + str(t) + '-' + str(i))
 
@@ -32,6 +29,7 @@ def genSTB(fname):
     L = np.argwhere(P == 1)
 
     print(L[0])
+
     #Construct graph G. The edge weight is the interface.
     for l in L:
 
@@ -39,8 +37,8 @@ def genSTB(fname):
         #     continue
 
         #Include or ignore temporal links
-        if l[0] == l[1] and not includeT:
-            continue
+        # if l[0] == l[1] and includeT:
+        #     continue
 
         '''
         for i in range(l[3] + 1,l[4] + 1):
@@ -54,9 +52,11 @@ def genSTB(fname):
         v = str(l[1]) + '-' + str(l[4]) + '-' + str(l[2])
 
         G.add_edge(u, v)
+        G[u][v]['weight'] = random.randint(1, 5)
 
     print ("Number of nodes in STB: ",len(G))
     print ("Number of edges in STB: ",len(G.edges()))
     print("Density of G: ", (2 * len(G.edges())) / (len(G) * (len(G) - 1)))
-
+    print("Link prob at each layer: ", len(G.edges())/(len(G.nodes()) * S[0]))
+    print("isConnected", nx.is_connected(G), "\n")
     return G
