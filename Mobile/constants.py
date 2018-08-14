@@ -16,7 +16,7 @@ maxTau = 5
 # Message size
 M = [100]
 
-numSpec = 4 #always even if we only use one band
+numSpec = 1 #always even if we only use one band
 
 #TV ISM LTE CBRS
 #3, 10, 40
@@ -51,7 +51,7 @@ VMIN = 400
 VMAX = 600
 wait_time = [2, 7]
 run_start_time = 1
-S = [0, 1, 2, 3]
+S = [0]
 path_to_folder = 'Nodes10/Time15/Day1/ALL/XChants/'
 link_exists_folder = 'Nodes10/Time15/Day1/'
 lex_data_directory = 'Lexington10/Time15/'

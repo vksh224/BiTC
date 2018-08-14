@@ -31,10 +31,10 @@ def ULCP(G, t):
                 path = nx.dijkstra_path(G, i, j)
                 edges_in_path = zip(path[0:], path[1:])
                 for (u, v) in edges_in_path:
-                    print("(", u, ",", v, ")", G[u][v], end = " ")
+                    #print("(", u, ",", v, ")", G[u][v], end = " ")
                     if H.has_edge(u, v) == False and G.has_edge(u, v):
                         H.add_edge(u, v)
-                print("\n")
+                #print("\n")
 
     print("ULCP: Nodes ", len(H))
     print("ULCP: Eges", len(H.edges()))
@@ -52,10 +52,10 @@ def GrdLCP(G, t):
     V = G.nodes()
     #allPaths = all_shortest_paths(G, V)
     layer_start_nodes = get_certain_nodes(V, "0")
-    print(layer_start_nodes, len(layer_start_nodes))
+    # print(layer_start_nodes, len(layer_start_nodes))
 
     layer_end_nodes = get_certain_nodes(V, t)
-    print(layer_end_nodes, len(layer_end_nodes))
+    # print(layer_end_nodes, len(layer_end_nodes))
 
     for i in layer_start_nodes:
         for j in layer_end_nodes:
