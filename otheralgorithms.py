@@ -31,10 +31,10 @@ def ULCP(G, t):
                 path = nx.dijkstra_path(G, i, j)
                 edges_in_path = zip(path[0:], path[1:])
                 for (u, v) in edges_in_path:
-                    #print(u, v, end = " ")
+                    print("(", u, ",", v, ")", G[u][v], end = " ")
                     if H.has_edge(u, v) == False and G.has_edge(u, v):
                         H.add_edge(u, v)
-            #print("\n")
+                print("\n")
 
     print("ULCP: Nodes ", len(H))
     print("ULCP: Eges", len(H.edges()))

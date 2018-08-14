@@ -3,6 +3,7 @@ import math
 import networkx as nx
 import numpy as np
 import random
+from Mobile.constants import *
 
 def genSTB(fname):
     #Link exist list of format [i, j, s, te, ts]
@@ -52,7 +53,23 @@ def genSTB(fname):
         v = str(l[1]) + '-' + str(l[4]) + '-' + str(l[2])
 
         G.add_edge(u, v)
-        G[u][v]['weight'] = random.randint(1, 5)
+        if u == v:
+            G[u][v]['weight'] = 1
+        else:
+            G[u][v]['weight'] = M[0]/minBW[l[2]]
+
+    #Add additional spectral edges
+
+    for u in G.nodes():
+        for v in G.nodes():
+            for s in range(S[2]):
+                u_name = str(u).split("-")
+                v_name = str(v).split("-")
+
+                #time is same and band is different
+                if u_name[0] == v_name[0] == u_name[1] == v_name[1] and u_name[2] != v_name[2]:
+                    G.add_edge(u, v)
+                    G[u][v]['weight'] = 0
 
     print ("Number of nodes in STB: ",len(G))
     print ("Number of edges in STB: ",len(G.edges()))

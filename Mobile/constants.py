@@ -12,20 +12,20 @@ tau = 1 # Instead of looking at each dt, we would look at tau as this is the min
 TTL = 1
 minTTL = 15
 #max tau is the time taken to deliver the maximum size message over slowest band (with least bandwidth)
-maxTau = 10
+maxTau = 5
 # Message size
-M = [1, 10, 100, 1000]
+M = [100]
 
-numSpec = 1 #always even if we only use one band
+numSpec = 4 #always even if we only use one band
 
 #TV ISM LTE CBRS
 #3, 10, 40
-minBW = [3, 8, 20, 40]               # Minimum bandwidth for each spectrum band
+minBW = [6, 10, 20, 40]               # Minimum bandwidth for each spectrum band
 #6, 20, 60
 maxBW = [6, 20, 30, 60]             # Maximum bandwidth for each spectrum band
 #2000, 100, 500
-spectRange = [5000, 5000, 5000, 5000]
-#spectRange = [3600, 900, 2400, 700]        # Transmission coverage for each spectrum band
+#spectRange = [4200, 500, 2300, 700]
+spectRange = [1800, 450, 1200, 350]        # Transmission coverage for each spectrum band
 # specRange = [1, 2, 0.5]
 spectPower = [4, 1, 4, 10]          # Transmission power for each spectrum band
 
@@ -51,7 +51,7 @@ VMIN = 400
 VMAX = 600
 wait_time = [2, 7]
 run_start_time = 1
-S = [0]
+S = [0, 1, 2, 3]
 path_to_folder = 'Nodes10/Time15/Day1/ALL/XChants/'
 link_exists_folder = 'Nodes10/Time15/Day1/'
 lex_data_directory = 'Lexington10/Time15/'
