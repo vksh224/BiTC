@@ -19,11 +19,11 @@ def plot_graph(G, filename, fidelity):
 fidelity = 0
 
 #Mobile Network: Generate STB graph
-W = genSTB("Nodes10/Time10/Day1/LINK_EXISTS.pkl")
+#W = genSTB("Nodes10/Time10/Day1/LINK_EXISTS.pkl")
 #deg(W)
 
 #Static Network: MetroFi
-# W = create_static_network("Static/metrofi/aps.txt")
+W = create_static_network("Static/metrofi/aps.txt")
 
 print("OriginalDRN: No. of triangles ", len(nx.triangles(W)))
 # W = nx.convert_node_labels_to_integers(W,first_label = 0)
@@ -32,11 +32,11 @@ print("OriginalDRN: No. of triangles ", len(nx.triangles(W)))
 
 #W = nx.erdos_renyi_graph(100, 0.25)
 #Run other algorithms
-ULCP_W = ULCP(W, "9")
-GrdLCP(W, "9")
-plot_graph(ULCP_W, "ULCP", 0)
+# ULCP_W = ULCP(W, "9")
+# GrdLCP(W, "9")
+# plot_graph(ULCP_W, "ULCP", 0)
 
-'''
+
 #Our algorithm
 #Read GRN
 GRN = nx.read_gml('Yeast.gml')
@@ -62,7 +62,7 @@ print ("MappedDRN: Edges ", len(E))
 print("MappedDRN: is connected ", nx.is_connected(MW_graph))
 print("MappedDRN: No. of triangles ", len(nx.triangles(MW_graph)))
 # plot_graph(MW_graph, "MW", fidelity)
-'''
+
 
 
 
